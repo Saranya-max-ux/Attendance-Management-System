@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+public class AttendanceManagement {
+    
+    static String[] students = {"Alice", "Bob", "Charlie", "David", "Eva"};
+    static boolean[] attendance = new boolean[students.length];
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n--- Attendance Management System ---");
+            System.out.println("1. Mark Attendance");
+            System.out.println("2. View Attendance");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    markAttendance(scanner);
+                    break;
+                case 2:
+                    viewAttendance();
+                    break;
+                case 3:
+                    System.out.println("Exiting system...");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        } while (choice != 3);
+        
+        scanner.close();
+    }
+
+    public static void markAttendance(Scanner scanner) {
+        System.out.println("\nMark Attendance:");
+        for (int i = 0; i < students.length; i++) {
+            System.out.print("Is " + students[i] + " present? (y/n): ");
+            char status = scanner.nextLine().charAt(0);
+            if (status == 'y' || status == 'Y') {
+                attendance[i] = true;
+            } else if (status == 'n' || status == 'N') {
+                attendance[i] = false;
+            } else {
+                System.out.println("Invalid input, assuming absent.");
+                attendance[i] = false;
+            }
+        }
+    }
+
+    public static void viewAttendance() {
+        System.out.println("\n--- Attendance Report ---");
+        for (int i = 0; i < students.length; i++) {
+            String status = attendance[i] ? "Present" : "Absent";
+            System.out.println(students[i] + ": " + status);
+        }
+    }
+}
